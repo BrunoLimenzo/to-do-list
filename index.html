@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>To-do list</title>
+</head>
+<body>
+    <div id="to-do-list">
+        <h1>To do list</h1>
+
+        <ul id="card-container">
+            <li class="card" onclick="setChecked(this)"><span>Make coffee</span><a href="#" onclick="deleteElement(this.parentElement)">-</a></li>
+            <li class="card" onclick="setChecked(this)"><span></span>Study<a href="#" onclick="deleteElement(this.parentElement)">-</a></li>
+            <li class="card" onclick="setChecked(this)"><span>Fight a robot</span><a href="#" onclick="deleteElement(this.parentElement)">-</a></li>
+        </ul>
+
+        <input id="enter" type="text" placeholder="Add task">
+
+    </div>
+
+    <script>
+        let input = document.getElementById("enter");
+
+        input.addEventListener("keypress",function(event){
+            if(event.key === "Enter"){
+                let newListItem = document.createElement("li");
+                let span = document.createElement("span");
+                let a = document.createElement("a");
+                const container = document.getElementById("card-container");
+                span.textContent = input.value;
+                a.textContent = "-";
+                a.setAttribute('onclick','deleteElement(this.parentElement)')
+                newListItem.className = "card";
+                newListItem.setAttribute("onClick", "setChecked(this)")
+                newListItem.append(span,a);
+                container.append(newListItem);
+                input.value = "";
+            }
+        })
+
+        function deleteElement(element){
+            element.remove();
+        }
+
+        function setChecked(element){
+            if(element.classList.contains("checked")){
+                element.classList.remove("checked");
+            }else{
+                element.classList.add("checked");
+            }
+        }
+    </script>
+</body>
+</html>
